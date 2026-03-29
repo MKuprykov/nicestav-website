@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompletné rekonštrukcie bytov a domov v Bratislave | NiceStav</title>
+    <meta name="description" content="Zabezpečíme kompletnú rekonštrukciu bytu, domu alebo terasy. Od búracích prác až po finálne odovzdanie. Prehľadná cenová ponuka v Revite.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* БАЗОВЫЕ НАСТРОЙКИ И ЦВЕТА */
+        :root {
+            --dark-blue: #0f2027;
+            --orange: #ff6b00;
+            --light-bg: #f8f9fa;
+            --text-color: #333333;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-color); line-height: 1.6; background-color: var(--white); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* КНОПКИ */
+        .btn { display: inline-block; padding: 14px 28px; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 6px; cursor: pointer; transition: 0.3s; border: none; text-align: center; }
+        .btn-primary { background-color: var(--orange); color: var(--white); }
+        .btn-primary:hover { background-color: #e65c00; transform: translateY(-2px); }
+        .btn-outline { background-color: transparent; color: var(--white); border: 2px solid var(--white); }
+        .btn-outline:hover { background-color: var(--white); color: var(--dark-blue); }
+
+        /* ШАПКА */
+        .header { background-color: var(--dark-blue); padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 800; color: var(--white); text-decoration: none; }
+        .logo span { color: var(--orange); }
+
+        /* Телефоны в шапке (Новое для конверсии) */
+        .header-contacts { display: flex; flex-direction: column; text-align: right; margin-right: 20px; }
+        .header-phone { font-weight: 800; color: var(--white); text-decoration: none; font-size: 16px; transition: 0.3s; }
+        .header-phone:hover { color: var(--orange); }
+        .header-hours { font-size: 12px; color: #a0aec0; margin-top: -2px; }
+
+        /* НАВИГАЦИЯ */
+        .nav-menu { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--dark-blue); padding: 20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); }
+        .nav-menu.active { display: flex; }
+        .nav-link { color: var(--white); text-decoration: none; margin-bottom: 15px; font-size: 16px; font-weight: 600; transition: 0.3s; }
+        .nav-link:hover { color: var(--orange); }
+        .btn-small { background-color: var(--orange); padding: 10px 15px; border-radius: 5px; text-align: center; color: white !important;}
+
+        /* БУРГЕР */
+        .burger-menu { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
+        .burger-menu span { display: block; width: 30px; height: 3px; background-color: var(--white); transition: 0.3s; }
+
+        /* СЕКЦИИ */
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; font-size: 36px; margin-bottom: 50px; color: var(--dark-blue); font-weight: 800; }
+        .bg-light { background-color: var(--light-bg); }
+        .bg-dark { background-color: var(--dark-blue); color: var(--white); }
+        .bg-dark h2 { color: var(--white); }
+
+        /* ГЛАВНЫЙ ЭКРАН (HERO) */
+        .hero { background: linear-gradient(rgba(15, 32, 39, 0.9), rgba(15, 32, 39, 0.9)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; color: var(--white); padding: 120px 0; text-align: center; }
+        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 40px auto; color: #d1d5db; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* СЕТКИ И КАРТОЧКИ (Услуги с полосочкой) */
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .align-center { align-items: center; }
+
+        .service-item { border-left: 4px solid var(--orange); padding-left: 20px; }
+        .service-item h3 { color: var(--dark-blue); margin-bottom: 10px; }
+
+        /* КЕЙСЫ */
+        .case-card { background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; }
+        .case-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .case-img { width: 100%; height: 220px; object-fit: cover; }
+        .case-content { padding: 25px; }
+        .case-content h3 { color: var(--dark-blue); margin-bottom: 15px; font-size: 20px; }
+        .case-content p { color: #555; margin-bottom: 8px; font-size: 15px; }
+        .case-link { display: inline-block; margin-top: 15px; color: var(--orange); font-weight: 600; text-decoration: none; }
+        .case-link:hover { color: #e65c00; }
+
+        /* ШАГИ (Порядок работы) */
+        .process-column { display: flex; flex-direction: column; gap: 30px; }
+        .step-card { background: var(--white); padding: 30px 30px 30px 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: relative; }
+        .step-number { position: absolute; top: -15px; left: -15px; background: var(--orange); color: white; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; border-radius: 50%; box-shadow: 0 4px 10px rgba(255,107,0,0.3); }
+
+        /* FAQ */
+        .faq-item { background: var(--white); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
+        .faq-item summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; position: relative; color: var(--dark-blue); }
+        .faq-item summary::after { content: '+'; position: absolute; right: 20px; font-size: 24px; color: var(--orange); }
+        .faq-item[open] summary::after { content: '-'; }
+        .faq-item p { padding: 0 20px 20px; color: #555; }
+
+        /* ЛИД-МАГНИТ (Оранжевый блок) */
+        .bg-orange { background-color: var(--orange) !important; color: white !important; padding: 60px 0; }
+        .bg-orange h2 { color: white !important; margin-bottom: 20px; }
+        .btn-white { background-color: white; color: var(--orange); font-weight: 800; font-size: 18px; padding: 15px 30px; display: inline-block; border-radius: 6px; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-white:hover { background-color: #f8f9fa; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+        /* ПОЛЗУНОК ДО/ПОСЛЕ */
+        .before-after-container { position: relative; width: 100%; height: 400px; min-height: 300px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background-color: #eee; }
+        .img-background, .img-foreground { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .img-background img, .img-foreground img { width: 100%; height: 100%; object-fit: cover; object-position: left center; pointer-events: none; }
+        .img-foreground { width: 50%; border-right: 3px solid white; overflow: hidden; z-index: 2; }
+        .slider { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; outline: none; margin: 0; top: 0; left: 0; cursor: ew-resize; z-index: 10; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 40px; height: 100%; background: transparent; cursor: ew-resize; }
+        .slider-button { pointer-events: none; position: absolute; width: 40px; height: 40px; border-radius: 50%; background-color: white; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 5; display: flex; justify-content: center; align-items: center; }
+        .slider-button::before { content: '↔'; font-size: 20px; color: var(--orange); font-weight: bold; }
+
+        /* ФОРМА И КОНТАКТЫ */
+        .contact-container { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        .contact-form-wrapper { background: var(--white); padding: 30px; border-radius: 10px; color: var(--text-color); }
+        .form input, .form textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 16px; }
+        .form input:focus, .form textarea:focus { outline: none; border-color: var(--orange); }
+
+        .messenger-btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 6px; color: white; text-decoration: none; font-weight: 600; margin-right: 10px; margin-bottom: 10px; transition: 0.3s; }
+        .messenger-btn:hover { transform: translateY(-2px); }
+        .bg-wa { background-color: #25D366; }
+        .bg-tg { background-color: #0088cc; }
+
+        /* УВЕДОМЛЕНИЕ ФОРМЫ (AJAX) */
+        .form-message { display: none; margin-top: 15px; padding: 15px; border-radius: 6px; text-align: center; font-weight: 600; }
+        .form-message.success { display: block; background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .form-message.error { display: block; background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        /* ПОДВАЛ */
+        .footer { background-color: #0a1519; color: #888; text-align: center; padding: 20px 0; font-size: 14px; }
+
+        /* АДАПТИВНОСТЬ ДЛЯ ПК */
+        @media (min-width: 992px) {
+            .nav-menu { display: flex; flex-direction: row; position: static; width: auto; padding: 0; gap: 20px; align-items: center; background: transparent; box-shadow: none; }
+            .nav-link { margin-bottom: 0; }
+        }
+        @media (min-width: 768px) {
+            .burger-menu { display: none; }
+            .hero h1 { font-size: 56px; }
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+            .grid-2 { grid-template-columns: repeat(2, 1fr); }
+            .contact-container { grid-template-columns: 1fr 1fr; align-items: center; }
+            .contact-form-wrapper { padding: 40px; }
+        }
+        @media (max-width: 991px) {
+            .header-contacts { display: none; } /* На мобилках прячем часы, чтобы не ломать шапку */
+        }
+        @media (max-width: 768px) {
+            .before-after-container { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-container">
+        <a href="index.html" class="logo">Nice<span>Stav</span></a>
+
+        <button class="burger-menu" id="burger-btn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav-menu" id="nav-menu">
+            <a href="#services" class="nav-link">Služby</a>
+            <a href="#about" class="nav-link">O nás</a>
+            <a href="#cases" class="nav-link">Naše práce</a>
+            <a href="#process" class="nav-link">Postup</a>
+
+            <div class="header-contacts">
+                <a href="tel:+421900000000" class="header-phone">📞 +421 900 000 000</a>
+                <span class="header-hours">Po–Pi 8:00–18:00</span>
+            </div>
+
+            <a href="#contact" class="nav-link btn-small">Nezáväzná obhliadka</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Kompletné rekonštrukcie bytov a domov v Bratislave</h1>
+            <p>Zabezpečíme kompletnú rekonštrukciu bytu, domu alebo terasy – od búracích prác cez remeslá až po finálne odovzdanie. Pracujeme na zmluvu s prehľadnou cenovou ponukou v Revite.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Získať cenovú ponuku</a>
+                <a href="#cases" class="btn btn-outline">Naše realizácie</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Služby, ktoré pre vás zabezpečíme</h2>
+            <div class="grid-2">
+                <div class="service-item">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🏠 Rekonštrukcie bytov a domov „na kľúč“</h3>
+                    <p>Kompletná obnova bytov a rodinných domov – dispozičné úpravy, rozvody, omietky, podlahy, kúpeľne aj kuchyne. Všetko riešime za vás, na jeden kontakt.</p>
+                </div>
+                <div class="service-item">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">☀️ Rekonštrukcie terás a balkónov</h3>
+                    <p>Obnova povrchov, izolácií a zábradlí. Navrhneme technické riešenie, ktoré vydrží roky a odolá akémukoľvek počasiu.</p>
+                </div>
+                <div class="service-item">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🔨 Búracie práce a demolácie</h3>
+                    <p>Realizujeme búracie práce v bytoch aj kompletnú demoláciu menších objektov vrátane odvozu sute a zabezpečenia bezpečnosti na stavbe.</p>
+                </div>
+                <div class="service-item">
+                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🚚 Koordinácia remesiel a odvoz odpadu</h3>
+                    <p>Zabezpečíme plynulý chod stavby, časovú koordináciu všetkých majstrov a samozrejmosťou je aj kompletný odvoz a legálna likvidácia stavebného odpadu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section" style="background-color: var(--white); padding: 60px 0;">
+        <div class="container">
+            <div class="grid-2 align-center">
+
+                <div class="before-after-container">
+                    <div class="img-background">
+                        <img src="assets/img/before1.jpg" alt="Pred rekonštrukciou" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <div class="img-foreground">
+                        <img src="assets/img/after1.jpg" alt="Po rekonštrukcii" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                    </div>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="slider">
+                    <div class="slider-button"></div>
+                </div>
+
+                <div class="about-text">
+                    <h2 style="font-size: 36px; color: var(--dark-blue); margin-bottom: 20px; line-height: 1.2;">Priebeh rekonštrukcie pod kontrolou</h2>
+
+                    <p style="font-size: 18px; line-height: 1.6; color: #555; margin-bottom: 30px;">
+                        Rekonštrukcia — to sú nákupy materiálu, koordinácia majstrov a neustála kontrola. Náš proces sme nastavili tak, aby ste presne vedeli, čo sa na stavbe deje, bez toho, aby ste tam museli každý deň chodiť.
+                    </p>
+
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
+                            <span style="font-size: 16px; color: #333;"><strong>Jasný výsledok pred začiatkom.</strong> Rozsah, postup aj očakávaný výsledok si odsúhlasíme ešte pred samotnou realizáciou.</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
+                            <span style="font-size: 16px; color: #333;"><strong>Rekonštrukcia bez vašej neustálej prítomnosti.</strong> Pravidelne vám posielame foto a video reporty z kľúčových etáp prác.</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
+                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
+                            <span style="font-size: 16px; color: #333;"><strong>Záruka a zmluva.</strong> Pracujeme férovo, na pevnú zmluvu so zárukou na odovzdané dielo.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Naše realizácie</h2>
+
+            <div class="grid-3">
+                <div class="case-card">
+                    <img src="assets/img/case1.jpg" alt="3-izbový byt, Ružinov" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <div class="case-content">
+                        <h3>3-izbový byt, Ružinov</h3>
+                        <p><strong>Typ prác:</strong> Kompletná rekonštrukcia</p>
+                        <p><strong>Rozloha:</strong> 78 m²</p>
+                        <p><strong>Trvanie:</strong> 45 pracovných dní</p>
+                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <img src="assets/img/case2.jpg" alt="Kúpeľňa na kľúč, Petržalka" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <div class="case-content">
+                        <h3>Kúpeľňa na kľúč, Petržalka</h3>
+                        <p><strong>Typ prác:</strong> Búranie jadra a nová kúpeľňa</p>
+                        <p><strong>Rozloha:</strong> 6 m²</p>
+                        <p><strong>Trvanie:</strong> 14 pracovných dní</p>
+                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <img src="assets/img/case3.jpg" alt="Rodinný dom, Jarovce" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <div class="case-content">
+                        <h3>Rodinný dom, Jarovce</h3>
+                        <p><strong>Typ prác:</strong> Rekonštrukcia prízemia</p>
+                        <p><strong>Rozloha:</strong> 120 m²</p>
+                        <p><strong>Trvanie:</strong> 60 pracovných dní</p>
+                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; color: #555; margin-top: 40px; font-size: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Ku každému objektu vám vieme ukázať nielen výsledok, ale aj to, ako vyzerá cenová ponuka, ktorú klient obdrží ešte pred začiatkom prác.
+            </p>
+        </div>
+    </section>
+
+    <section class="section bg-orange" style="text-align: center;">
+        <div class="container" style="max-width: 800px;">
+            <h2>Bezplatná obhliadka a cenová ponuka v Revite</h2>
+            <p style="font-size: 18px; margin-bottom: 30px; color: #fff5eb; line-height: 1.6;">
+                Prídeme na miesto, zameriame byt alebo dom a pripravíme prehľadnú cenovú ponuku v softvéri Revit s presným rozpisom prác a potrebných materiálov.
+            </p>
+            <a href="#contact" class="btn-white">Nezáväzná obhliadka zdarma</a>
+        </div>
+    </section>
+
+    <section id="process" class="section">
+        <div class="container">
+            <h2 class="section-title">Ako postupujeme</h2>
+            <div class="grid-2">
+                <div class="process-column">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Bezplatná obhliadka</h3>
+                        <p>Prídeme na miesto, priestor presne zameriame a prekonzultujeme s vami možnosti.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Cenová ponuka v Revite</h3>
+                        <p>Pripravíme detailný rozpočet prác a materiálov. Ak vám podmienky vyhovujú, dohodneme termín.</p>
+                    </div>
+                </div>
+                <div class="process-column">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Zmluva a realizácia</h3>
+                        <p>Podpíšeme zmluvu a pustíme sa do prác. Priebežne vás informujeme reportami z miesta stavby.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Odovzdanie na kľúč</h3>
+                        <p>Dokončené dielo upraceme a v dohodnutom termíne vám odovzdáme kľúče od hotového.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section bg-light">
+        <div class="container" style="max-width: 800px;">
+            <h2 class="section-title">Často kladené otázky</h2>
+
+            <details class="faq-item">
+                <summary>Môžem si pozrieť ukážku vašej cenovej ponuky?</summary>
+                <p>Áno. Na webe ukazujeme nielen realizácie, ale aj formát výstupov. Naša cenová ponuka je pripravená v profesionálnom softvéri Revit, vďaka čomu presne vidíte, za čo platíte.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Pracujete na základe zmluvy?</summary>
+                <p>Áno, všetky projekty realizujeme výhradne na základe riadnej zmluvy o dielo, ktorá chráni obe strany a definuje podmienky realizácie.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Zabezpečujete aj nákup materiálu?</summary>
+                <p>Stavebný a hrubý materiál (omietky, káble, potrubia) preberáme na seba my. Povrchové a pohľadové materiály si po dohode vyberáte vy.</p>
+            </details>
+        </div>
+    </section>
+
+    <section id="contact" class="section bg-dark">
+        <div class="container contact-container">
+            <div class="contact-text">
+                <h2>Spojte sa s nami</h2>
+                <p>Pôsobíme v Bratislave a blízkom okolí. Zanechajte nám kontakt a ozveme sa vám pre dohodnutie bezplatnej obhliadky.</p>
+
+                <p style="margin-top: 25px; font-size: 18px; color: #b0c4de;">
+                    Telefón: <br>
+                    <a href="tel:+421900000000" style="color: white; text-decoration: none; font-weight: bold; font-size: 24px;">+421 900 000 000</a>
+                </p>
+                <p style="margin-top: 15px; font-size: 18px; color: #b0c4de;">
+                    Email: <br>
+                    <a href="mailto:info@nicestav.sk" style="color: white; text-decoration: none;">info@nicestav.sk</a>
+                </p>
+
+                <div style="margin-top: 25px;">
+                    <a href="https://wa.me/421900000000" target="_blank" class="messenger-btn bg-wa">WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <form id="contact-form" class="form">
+                    <p style="margin-bottom: 20px; font-weight: 600; color: var(--dark-blue);">Vyplňte krátky formulár, ozveme sa vám v čo najkratšom čase.</p>
+
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+
+                    <input type="text" name="Meno" placeholder="Vaše meno" required>
+                    <input type="tel" name="Telefon" placeholder="Telefón (+421...)" required pattern="[\+]\d{10,14}|\d{10,14}">
+                    <input type="text" name="Lokalita" placeholder="Lokalita (napr. Ružinov, Petržalka)" required>
+                    <textarea name="Popis" rows="3" placeholder="Stručný popis (čo potrebujete urobiť?)" required></textarea>
+
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <input type="hidden" name="subject" value="Nový dopyt z webu NiceStav (SK)">
+                    <input type="hidden" name="from_name" value="NiceStav.sk">
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 18px;">Odoslať dopyt</button>
+                </form>
+
+                <div id="form-result" class="form-message"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 NiceStav. IČO: 12345678, DIČ: 2021234567. Kompletné rekonštrukcie v Bratislave.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // 1. Мобильное меню
+        const burgerBtn = document.getElementById('burger-btn');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        if(burgerBtn && navMenu) {
+            burgerBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // 2. Ползунок До/После
+        const slider = document.getElementById('slider');
+        const foregroundImg = document.querySelector('.img-foreground');
+        const sliderButton = document.querySelector('.slider-button');
+
+        if (slider && foregroundImg && sliderButton) {
+            slider.addEventListener('input', function(e) {
+                const sliderPos = e.target.value;
+                foregroundImg.style.width = `${sliderPos}%`;
+                sliderButton.style.left = `${sliderPos}%`;
+            });
+        }
+
+        // 3. Отправка формы (AJAX)
+        const form = document.getElementById('contact-form');
+        const result = document.getElementById('form-result');
+
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                result.classList.remove('success', 'error');
+                result.classList.add('success');
+                result.style.backgroundColor = '#e0f2fe';
+                result.style.color = '#075985';
+                result.innerHTML = "Odosielam dopyt...";
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.style.backgroundColor = '#d1fae5';
+                            result.style.color = '#065f46';
+                            result.innerHTML = "Ďakujeme, dopyt bol úspešne odoslaný. Ozveme sa vám v krátkom čase.";
+                            form.reset();
+                            setTimeout(() => {
+                                result.classList.remove('success');
+                            }, 5000);
+                        } else {
+                            result.classList.remove('success');
+                            result.classList.add('error');
+                            result.innerHTML = "Chyba: " + json.message;
+                        }
+                    })
+                    .catch(error => {
+                        result.classList.remove('success');
+                        result.classList.add('error');
+                        result.innerHTML = "Nastala chyba pripojenia. Prosím, kontaktujte nás telefonicky.";
+                    });
+            });
+        }
+    });
+</script>
+</body>
+</html>
