@@ -4,154 +4,897 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kompletné rekonštrukcie bytov a domov v Bratislave | NiceStav</title>
-    <meta name="description" content="Zabezpečíme kompletnú rekonštrukciu bytu, domu alebo terasy. Od búracích prác až po finálne odovzdanie. Prehľadná cenová ponuka v Revite.">
+    <meta name="description" content="Kompletné rekonštrukcie bytov a domov v Bratislave. Bezplatná obhliadka, prehľadná cenová ponuka do 3 pracovných dní, zmluva, záruka a kompletná realizácia od začiatku až po odovzdanie.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* БАЗОВЫЕ НАСТРОЙКИ И ЦВЕТА */
         :root {
             --dark-blue: #0f2027;
             --orange: #ff6b00;
+            --orange-dark: #e65c00;
             --light-bg: #f8f9fa;
             --text-color: #333333;
             --white: #ffffff;
+            --muted: #6b7280;
+            --border: #e5e7eb;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--text-color); line-height: 1.6; background-color: var(--white); }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* КНОПКИ */
-        .btn { display: inline-block; padding: 14px 28px; font-size: 16px; font-weight: 600; text-decoration: none; border-radius: 6px; cursor: pointer; transition: 0.3s; border: none; text-align: center; }
-        .btn-primary { background-color: var(--orange); color: var(--white); }
-        .btn-primary:hover { background-color: #e65c00; transform: translateY(-2px); }
-        .btn-outline { background-color: transparent; color: var(--white); border: 2px solid var(--white); }
-        .btn-outline:hover { background-color: var(--white); color: var(--dark-blue); }
-
-        /* ШАПКА */
-        .header { background-color: var(--dark-blue); padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 26px; font-weight: 800; color: var(--white); text-decoration: none; }
-        .logo span { color: var(--orange); }
-
-        /* Телефоны в шапке (Новое для конверсии) */
-        .header-contacts { display: flex; flex-direction: column; text-align: right; margin-right: 20px; }
-        .header-phone { font-weight: 800; color: var(--white); text-decoration: none; font-size: 16px; transition: 0.3s; }
-        .header-phone:hover { color: var(--orange); }
-        .header-hours { font-size: 12px; color: #a0aec0; margin-top: -2px; }
-
-        /* НАВИГАЦИЯ */
-        .nav-menu { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--dark-blue); padding: 20px; box-shadow: 0 10px 10px rgba(0,0,0,0.1); }
-        .nav-menu.active { display: flex; }
-        .nav-link { color: var(--white); text-decoration: none; margin-bottom: 15px; font-size: 16px; font-weight: 600; transition: 0.3s; }
-        .nav-link:hover { color: var(--orange); }
-        .btn-small { background-color: var(--orange); padding: 10px 15px; border-radius: 5px; text-align: center; color: white !important;}
-
-        /* БУРГЕР */
-        .burger-menu { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
-        .burger-menu span { display: block; width: 30px; height: 3px; background-color: var(--white); transition: 0.3s; }
-
-        /* СЕКЦИИ */
-        .section { padding: 80px 0; }
-        .section-title { text-align: center; font-size: 36px; margin-bottom: 50px; color: var(--dark-blue); font-weight: 800; }
-        .bg-light { background-color: var(--light-bg); }
-        .bg-dark { background-color: var(--dark-blue); color: var(--white); }
-        .bg-dark h2 { color: var(--white); }
-
-        /* ГЛАВНЫЙ ЭКРАН (HERO) */
-        .hero { background: linear-gradient(rgba(15, 32, 39, 0.9), rgba(15, 32, 39, 0.9)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; color: var(--white); padding: 120px 0; text-align: center; }
-        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 40px auto; color: #d1d5db; }
-        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-
-        /* СЕТКИ И КАРТОЧКИ (Услуги с полосочкой) */
-        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 30px; }
-        .align-center { align-items: center; }
-
-        .service-item { border-left: 4px solid var(--orange); padding-left: 20px; }
-        .service-item h3 { color: var(--dark-blue); margin-bottom: 10px; }
-
-        /* КЕЙСЫ */
-        .case-card { background: var(--white); border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; transition: 0.3s; }
-        .case-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .case-img { width: 100%; height: 220px; object-fit: cover; }
-        .case-content { padding: 25px; }
-        .case-content h3 { color: var(--dark-blue); margin-bottom: 15px; font-size: 20px; }
-        .case-content p { color: #555; margin-bottom: 8px; font-size: 15px; }
-        .case-link { display: inline-block; margin-top: 15px; color: var(--orange); font-weight: 600; text-decoration: none; }
-        .case-link:hover { color: #e65c00; }
-
-        /* ШАГИ (Порядок работы) */
-        .process-column { display: flex; flex-direction: column; gap: 30px; }
-        .step-card { background: var(--white); padding: 30px 30px 30px 40px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: relative; }
-        .step-number { position: absolute; top: -15px; left: -15px; background: var(--orange); color: white; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; border-radius: 50%; box-shadow: 0 4px 10px rgba(255,107,0,0.3); }
-
-        /* FAQ */
-        .faq-item { background: var(--white); margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
-        .faq-item summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; position: relative; color: var(--dark-blue); }
-        .faq-item summary::after { content: '+'; position: absolute; right: 20px; font-size: 24px; color: var(--orange); }
-        .faq-item[open] summary::after { content: '-'; }
-        .faq-item p { padding: 0 20px 20px; color: #555; }
-
-        /* ЛИД-МАГНИТ (Оранжевый блок) */
-        .bg-orange { background-color: var(--orange) !important; color: white !important; padding: 60px 0; }
-        .bg-orange h2 { color: white !important; margin-bottom: 20px; }
-        .btn-white { background-color: white; color: var(--orange); font-weight: 800; font-size: 18px; padding: 15px 30px; display: inline-block; border-radius: 6px; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .btn-white:hover { background-color: #f8f9fa; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-
-        /* ПОЛЗУНОК ДО/ПОСЛЕ */
-        .before-after-container { position: relative; width: 100%; height: 400px; min-height: 300px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background-color: #eee; }
-        .img-background, .img-foreground { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .img-background img, .img-foreground img { width: 100%; height: 100%; object-fit: cover; object-position: left center; pointer-events: none; }
-        .img-foreground { width: 50%; border-right: 3px solid white; overflow: hidden; z-index: 2; }
-        .slider { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; outline: none; margin: 0; top: 0; left: 0; cursor: ew-resize; z-index: 10; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 40px; height: 100%; background: transparent; cursor: ew-resize; }
-        .slider-button { pointer-events: none; position: absolute; width: 40px; height: 40px; border-radius: 50%; background-color: white; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 5; display: flex; justify-content: center; align-items: center; }
-        .slider-button::before { content: '↔'; font-size: 20px; color: var(--orange); font-weight: bold; }
-
-        /* ФОРМА И КОНТАКТЫ */
-        .contact-container { display: grid; grid-template-columns: 1fr; gap: 40px; }
-        .contact-form-wrapper { background: var(--white); padding: 30px; border-radius: 10px; color: var(--text-color); }
-        .form input, .form textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 16px; }
-        .form input:focus, .form textarea:focus { outline: none; border-color: var(--orange); }
-
-        .messenger-btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 6px; color: white; text-decoration: none; font-weight: 600; margin-right: 10px; margin-bottom: 10px; transition: 0.3s; }
-        .messenger-btn:hover { transform: translateY(-2px); }
-        .bg-wa { background-color: #25D366; }
-        .bg-tg { background-color: #0088cc; }
-
-        /* УВЕДОМЛЕНИЕ ФОРМЫ (AJAX) */
-        .form-message { display: none; margin-top: 15px; padding: 15px; border-radius: 6px; text-align: center; font-weight: 600; }
-        .form-message.success { display: block; background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-        .form-message.error { display: block; background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-
-        /* ПОДВАЛ */
-        .footer { background-color: #0a1519; color: #888; text-align: center; padding: 20px 0; font-size: 14px; }
-
-        /* АДАПТИВНОСТЬ ДЛЯ ПК */
-        @media (min-width: 992px) {
-            .nav-menu { display: flex; flex-direction: row; position: static; width: auto; padding: 0; gap: 20px; align-items: center; background: transparent; box-shadow: none; }
-            .nav-link { margin-bottom: 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        @media (min-width: 768px) {
-            .burger-menu { display: none; }
-            .hero h1 { font-size: 56px; }
-            .grid-3 { grid-template-columns: repeat(3, 1fr); }
-            .grid-2 { grid-template-columns: repeat(2, 1fr); }
-            .contact-container { grid-template-columns: 1fr 1fr; align-items: center; }
-            .contact-form-wrapper { padding: 40px; }
+
+        html {
+            scroll-behavior: smooth;
         }
-        @media (max-width: 991px) {
-            .header-contacts { display: none; } /* На мобилках прячем часы, чтобы не ломать шапку */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--white);
         }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 50px;
+            color: var(--dark-blue);
+            font-weight: 800;
+        }
+
+        .bg-light {
+            background-color: var(--light-bg);
+        }
+
+        .bg-dark {
+            background-color: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .bg-dark h2 {
+            color: var(--white);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--dark-blue);
+        }
+
+        .btn-small {
+            background-color: var(--orange);
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-align: center;
+            color: #fff !important;
+        }
+
+        .header {
+            background-color: var(--dark-blue);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .header-contacts {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        .header-phone {
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        .header-phone:hover {
+            color: var(--orange);
+        }
+
+        .header-hours {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: -2px;
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--dark-blue);
+            padding: 20px;
+            box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.25s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--orange);
+        }
+
+        .burger-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .burger-menu span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: var(--white);
+            transition: 0.25s ease;
+        }
+
+        .hero {
+            background:
+                    linear-gradient(rgba(15, 32, 39, 0.88), rgba(15, 32, 39, 0.88)),
+                    url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--white);
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            line-height: 1.15;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 860px;
+            margin: 0 auto 32px;
+            color: #d1d5db;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 45px;
+        }
+
+        .hero-points {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px 35px;
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 30px;
+        }
+
+        .hero-point {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .hero-point svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--orange);
+            stroke-width: 3;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 768px) {
-            .before-after-container { height: 300px; }
+            .hero-points {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding-top: 25px;
+            }
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .align-center {
+            align-items: center;
+        }
+
+        .service-item {
+            border-left: 4px solid var(--orange);
+            padding-left: 20px;
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .service-header svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--orange);
+            flex-shrink: 0;
+        }
+
+        .service-header h3 {
+            color: var(--dark-blue);
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .service-item p {
+            color: #4b5563;
+        }
+
+        .before-after-container {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            min-height: 300px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background-color: #eee;
+        }
+
+        .img-background,
+        .img-foreground {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-background img,
+        .img-foreground img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            pointer-events: none;
+        }
+
+        .img-foreground {
+            width: 50%;
+            border-right: 3px solid white;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .slider {
+            position: absolute;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            outline: none;
+            margin: 0;
+            top: 0;
+            left: 0;
+            cursor: ew-resize;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: pan-y;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 40px;
+            height: 100%;
+            background: rgba(0,0,0,0.01);
+            cursor: ew-resize;
+        }
+
+        .slider-button {
+            pointer-events: none;
+            position: absolute;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: white;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-button::before {
+            content: '↔';
+            font-size: 20px;
+            color: var(--orange);
+            font-weight: bold;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .about-text p.lead {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 28px;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-list li {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .orange-dot {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
+            background-color: var(--orange);
+            border-radius: 50%;
+            display: inline-block;
+            margin-top: 7px;
+            margin-right: 15px;
+        }
+
+        .about-list span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .case-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: 0.25s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .case-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .case-content {
+            padding: 24px;
+        }
+
+        .case-content h3 {
+            color: var(--dark-blue);
+            margin-bottom: 14px;
+            font-size: 21px;
+            line-height: 1.25;
+        }
+
+        .case-content p {
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .case-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 15px;
+            color: var(--orange);
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.25s ease;
+        }
+
+        .case-link svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--orange);
+            transition: 0.25s ease;
+        }
+
+        .case-link:hover {
+            color: var(--orange-dark);
+        }
+
+        .case-link:hover svg {
+            stroke: var(--orange-dark);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .why-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px 30px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: 0.4s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            transition: 0.3s ease;
+        }
+
+        .why-card:hover .why-icon {
+            background: var(--orange);
+        }
+
+        .why-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--orange);
+            transition: 0.3s ease;
+        }
+
+        .why-card:hover .why-icon svg {
+            stroke: var(--white);
+        }
+
+        .why-card h3 {
+            font-size: 20px;
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .why-card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .bg-orange {
+            background-color: var(--orange) !important;
+            color: white !important;
+            padding: 64px 0;
+            text-align: center;
+        }
+
+        .bg-orange h2 {
+            color: white !important;
+            margin-bottom: 16px;
+            font-size: 34px;
+            line-height: 1.2;
+        }
+
+        .bg-orange p {
+            max-width: 820px;
+            margin: 0 auto 28px;
+            font-size: 18px;
+            color: #fff5eb;
+        }
+
+        .btn-white {
+            background-color: white;
+            color: var(--orange);
+            font-weight: 800;
+            font-size: 18px;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.25s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-white:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .process-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .step-card {
+            background: var(--white);
+            padding: 30px 30px 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: var(--orange);
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 800;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(255,107,0,0.3);
+        }
+
+        .step-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            font-size: 20px;
+        }
+
+        .step-card p {
+            color: #4b5563;
+        }
+
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            color: var(--dark-blue);
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 24px;
+            color: var(--orange);
+        }
+
+        .faq-item[open] summary::after {
+            content: '-';
+        }
+
+        .faq-item p {
+            padding: 0 20px 20px;
+            color: #555;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .contact-text p {
+            color: #d1d5db;
+        }
+
+        .contact-form-wrapper {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            color: var(--text-color);
+        }
+
+        .form-intro {
+            margin-bottom: 18px;
+        }
+
+        .form-intro strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+            font-size: 18px;
+        }
+
+        .form-intro p {
+            color: #4b5563;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .form input,
+        .form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .form input:focus,
+        .form textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .messenger-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: 0.25s ease;
+        }
+
+        .messenger-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bg-wa {
+            background-color: #25D366;
+        }
+
+        .form-message {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .form-message.success {
+            display: block;
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .form-message.error {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .footer {
+            background-color: #0a1519;
+            color: #9ca3af;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+
+        @media (min-width: 992px) {
+            .nav-menu {
+                display: flex;
+                flex-direction: row;
+                position: static;
+                width: auto;
+                padding: 0;
+                gap: 20px;
+                align-items: center;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .nav-link {
+                margin-bottom: 0;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .burger-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 58px;
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+
+            .contact-form-wrapper {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .header-contacts {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .before-after-container {
+                height: 300px;
+            }
+
+            .section-title,
+            .about-text h2,
+            .bg-orange h2 {
+                font-size: 30px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
         }
     </style>
 </head>
@@ -162,21 +905,28 @@
         <a href="index.html" class="logo">Nice<span>Stav</span></a>
 
         <button class="burger-menu" id="burger-btn" aria-label="Menu">
-            <span></span><span></span><span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
 
         <nav class="nav-menu" id="nav-menu">
             <a href="#services" class="nav-link">Služby</a>
             <a href="#about" class="nav-link">O nás</a>
-            <a href="#cases" class="nav-link">Naše práce</a>
-            <a href="#process" class="nav-link">Postup</a>
+            <a href="#cases" class="nav-link">Naše realizácie</a>
+            <a href="#process" class="nav-link">Postup prác</a>
 
             <div class="header-contacts">
-                <a href="tel:+421900000000" class="header-phone">📞 +421 900 000 000</a>
-                <span class="header-hours">Po–Pi 8:00–18:00</span>
+                <a href="tel:+421900000000" class="header-phone">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    +421 900 000 000
+                </a>
+                <span class="header-hours">Po – Pi 8:00 – 18:00</span>
             </div>
 
-            <a href="#contact" class="nav-link btn-small">Nezáväzná obhliadka</a>
+            <a href="#contact" class="nav-link btn-small">Bezplatná obhliadka</a>
         </nav>
     </div>
 </header>
@@ -185,10 +935,41 @@
     <section class="hero">
         <div class="container hero-content">
             <h1>Kompletné rekonštrukcie bytov a domov v Bratislave</h1>
-            <p>Zabezpečíme kompletnú rekonštrukciu bytu, domu alebo terasy – od búracích prác cez remeslá až po finálne odovzdanie. Pracujeme na zmluvu s prehľadnou cenovou ponukou v Revite.</p>
+            <p>
+                Prídeme na bezplatnú obhliadku, zameriame priestor a pripravíme prehľadnú cenovú ponuku do 3 pracovných dní.
+                Postaráme sa o celý priebeh rekonštrukcie – od dokumentov a materiálu až po realizáciu a finálne odovzdanie.
+            </p>
+
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Získať cenovú ponuku</a>
-                <a href="#cases" class="btn btn-outline">Naše realizácie</a>
+                <a href="#contact" class="btn btn-primary">Objednať bezplatnú obhliadku</a>
+                <a href="#cases" class="btn btn-outline">Pozrieť realizácie</a>
+            </div>
+
+            <div class="hero-points">
+                <div class="hero-point">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Bezplatná obhliadka</span>
+                </div>
+                <div class="hero-point">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Cenová ponuka do 3 dní</span>
+                </div>
+                <div class="hero-point">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Zmluva a záruka</span>
+                </div>
+                <div class="hero-point">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Kompletná realizácia od začiatku do konca</span>
+                </div>
             </div>
         </div>
     </section>
@@ -196,150 +977,262 @@
     <section id="services" class="section bg-light">
         <div class="container">
             <h2 class="section-title">Služby, ktoré pre vás zabezpečíme</h2>
+
             <div class="grid-2">
                 <div class="service-item">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🏠 Rekonštrukcie bytov a domov „na kľúč“</h3>
-                    <p>Kompletná obnova bytov a rodinných domov – dispozičné úpravy, rozvody, omietky, podlahy, kúpeľne aj kuchyne. Všetko riešime za vás, na jeden kontakt.</p>
+                    <div class="service-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <h3>Rekonštrukcie bytov a domov</h3>
+                    </div>
+                    <p>Kompletná obnova bytov a rodinných domov – dispozičné úpravy, rozvody, omietky, maľovanie, podlahy, kúpeľne aj kuchyne.</p>
                 </div>
+
                 <div class="service-item">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">☀️ Rekonštrukcie terás a balkónov</h3>
-                    <p>Obnova povrchov, izolácií a zábradlí. Navrhneme technické riešenie, ktoré vydrží roky a odolá akémukoľvek počasiu.</p>
+                    <div class="service-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <h3>Rekonštrukcie terás a balkónov</h3>
+                    </div>
+                    <p>Obnova povrchov, izolácií a technických detailov tak, aby terasa alebo balkón dlhodobo odolávali zaťaženiu aj počasiu.</p>
                 </div>
+
                 <div class="service-item">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🔨 Búracie práce a demolácie</h3>
-                    <p>Realizujeme búracie práce v bytoch aj kompletnú demoláciu menších objektov vrátane odvozu sute a zabezpečenia bezpečnosti na stavbe.</p>
+                    <div class="service-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                        <h3>Búracie práce a demontáže</h3>
+                    </div>
+                    <p>Realizujeme búracie práce, demontáž starých konštrukcií, kúpeľní, podláh a ďalších častí interiéru vrátane odvozu stavebného odpadu.</p>
                 </div>
+
                 <div class="service-item">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 10px;">🚚 Koordinácia remesiel a odvoz odpadu</h3>
-                    <p>Zabezpečíme plynulý chod stavby, časovú koordináciu všetkých majstrov a samozrejmosťou je aj kompletný odvoz a legálna likvidácia stavebného odpadu.</p>
+                    <div class="service-header">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                        <h3>Koordinácia prác a zabezpečenie materiálu</h3>
+                    </div>
+                    <p>Postaráme sa o koordináciu jednotlivých profesií, nákup materiálu, logistiku aj prehľadný priebeh celej rekonštrukcie.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="section about-section" style="background-color: var(--white); padding: 60px 0;">
+    <section id="about" class="section" style="background-color: var(--white); padding: 60px 0;">
         <div class="container">
             <div class="grid-2 align-center">
-
                 <div class="before-after-container">
                     <div class="img-background">
-                        <img src="assets/img/before1.jpg" alt="Pred rekonštrukciou" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        <img src="assets/img/before1.jpg" alt="Pred rekonštrukciou" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                     </div>
                     <div class="img-foreground">
-                        <img src="assets/img/after1.jpg" alt="Po rekonštrukcii" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        <img src="assets/img/after1.jpg" alt="Po rekonštrukcii" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                     </div>
                     <input type="range" min="1" max="100" value="50" class="slider" id="slider">
                     <div class="slider-button"></div>
                 </div>
 
                 <div class="about-text">
-                    <h2 style="font-size: 36px; color: var(--dark-blue); margin-bottom: 20px; line-height: 1.2;">Priebeh rekonštrukcie pod kontrolou</h2>
-
-                    <p style="font-size: 18px; line-height: 1.6; color: #555; margin-bottom: 30px;">
-                        Rekonštrukcia — to sú nákupy materiálu, koordinácia majstrov a neustála kontrola. Náš proces sme nastavili tak, aby ste presne vedeli, čo sa na stavbe deje, bez toho, aby ste tam museli každý deň chodiť.
+                    <h2>Priebeh rekonštrukcie pod kontrolou</h2>
+                    <p class="lead">
+                        Rekonštrukcia znamená množstvo rozhodnutí, nákupov a koordinácie. Náš proces sme nastavili tak, aby ste mali jasný prehľad a nemuseli riešiť každú drobnosť osobne.
                     </p>
 
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
-                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
-                            <span style="font-size: 16px; color: #333;"><strong>Jasný výsledok pred začiatkom.</strong> Rozsah, postup aj očakávaný výsledok si odsúhlasíme ešte pred samotnou realizáciou.</span>
+                    <ul class="about-list">
+                        <li>
+                            <span class="orange-dot"></span>
+                            <span><strong>Jasný rozsah prác ešte pred začiatkom.</strong> Dopredu si odsúhlasíme, čo sa bude robiť, aký bude postup a čo od výsledku očakávať.</span>
                         </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
-                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
-                            <span style="font-size: 16px; color: #333;"><strong>Rekonštrukcia bez vašej neustálej prítomnosti.</strong> Pravidelne vám posielame foto a video reporty z kľúčových etáp prác.</span>
+                        <li>
+                            <span class="orange-dot"></span>
+                            <span><strong>Dokumenty, materiál aj priebeh prác zabezpečíme za vás.</strong> Nemusíte samostatne riešiť dodávateľov, nákupy ani koordináciu remeselníkov.</span>
                         </li>
-                        <li style="margin-bottom: 15px; display: flex; align-items: flex-start;">
-                            <span style="margin-right: 15px; font-size: 20px;">✅</span>
-                            <span style="font-size: 16px; color: #333;"><strong>Záruka a zmluva.</strong> Pracujeme férovo, na pevnú zmluvu so zárukou na odovzdané dielo.</span>
+                        <li>
+                            <span class="orange-dot"></span>
+                            <span><strong>Zmluva, záruka a prehľad.</strong> Pracujeme na základe zmluvy a na želanie klienta vieme poskytnúť aj prehľad o použitom materiáli.</span>
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="cases" class="section bg-light">
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Prečo si klienti vyberajú práve nás</h2>
+
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            <path d="M9 14h6"></path><path d="M9 18h6"></path><path d="M9 10h.01"></path>
+                        </svg>
+                    </div>
+                    <h3>Kompletná realizácia od začiatku do konca</h3>
+                    <p>Od obhliadky a rozpočtu až po realizáciu a finálne odovzdanie. Nemusíte koordinovať viacero firiem a profesií samostatne.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <polyline points="9 12 11 14 15 10"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Zmluva, záruka a jasné podmienky</h3>
+                    <p>Pracujeme na základe zmluvy o dielo, s dohodnutým rozsahom prác a so zodpovednosťou za odovzdaný výsledok.</p>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h3>Materiál aj logistiku riešime za vás</h3>
+                    <p>Zabezpečíme nákup potrebného materiálu, dovoz aj organizáciu prác tak, aby bol priebeh rekonštrukcie čo najplynulejší.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="section bg-light" style="padding-top: 0;">
         <div class="container">
             <h2 class="section-title">Naše realizácie</h2>
 
             <div class="grid-3">
                 <div class="case-card">
-                    <img src="assets/img/case1.jpg" alt="3-izbový byt, Ružinov" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <img src="assets/img/case1.jpg" alt="3-izbový byt v Ružinove" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
                     <div class="case-content">
-                        <h3>3-izbový byt, Ružinov</h3>
-                        <p><strong>Typ prác:</strong> Kompletná rekonštrukcia</p>
+                        <h3>3-izbový byt v Ružinove</h3>
+                        <p><strong>Typ prác:</strong> Kompletná rekonštrukcia bytu</p>
                         <p><strong>Rozloha:</strong> 78 m²</p>
                         <p><strong>Trvanie:</strong> 45 pracovných dní</p>
-                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                        <p><strong>Rozsah:</strong> Rozvody, stierky, maľovanie, podlahy, kúpeľňa, dokončovacie práce</p>
+                        <a href="assets/pdf/ukazka-rozpoctu.pdf" target="_blank" class="case-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Ukážka rozpočtu a postupu prác
+                        </a>
                     </div>
                 </div>
 
                 <div class="case-card">
-                    <img src="assets/img/case2.jpg" alt="Kúpeľňa na kľúč, Petržalka" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <img src="assets/img/case2.jpg" alt="Kúpeľňa v Petržalke" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
                     <div class="case-content">
-                        <h3>Kúpeľňa na kľúč, Petržalka</h3>
-                        <p><strong>Typ prác:</strong> Búranie jadra a nová kúpeľňa</p>
+                        <h3>Kúpeľňa v Petržalke</h3>
+                        <p><strong>Typ prác:</strong> Rekonštrukcia kúpeľne na kľúč</p>
                         <p><strong>Rozloha:</strong> 6 m²</p>
                         <p><strong>Trvanie:</strong> 14 pracovných dní</p>
-                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                        <p><strong>Rozsah:</strong> Búranie, nové rozvody, obklady, sanita, montáž a dokončenie</p>
+                        <a href="assets/pdf/ukazka-rozpoctu.pdf" target="_blank" class="case-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Ukážka rozpočtu a postupu prác
+                        </a>
                     </div>
                 </div>
 
                 <div class="case-card">
-                    <img src="assets/img/case3.jpg" alt="Rodinný dom, Jarovce" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                    <img src="assets/img/case3.jpg" alt="Rodinný dom v Jarovciach" class="case-img" onerror="this.src='https://images.unsplash.com/photo-1505691938895-1758d7feb511?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
                     <div class="case-content">
-                        <h3>Rodinný dom, Jarovce</h3>
+                        <h3>Rodinný dom v Jarovciach</h3>
                         <p><strong>Typ prác:</strong> Rekonštrukcia prízemia</p>
                         <p><strong>Rozloha:</strong> 120 m²</p>
                         <p><strong>Trvanie:</strong> 60 pracovných dní</p>
-                        <a href="assets/pdf/calculation-sample.pdf" target="_blank" class="case-link">📄 Ukážka cenovej ponuky (PDF)</a>
+                        <p><strong>Rozsah:</strong> Búracie práce, podlahy, steny, kúpeľňa, kuchynská časť, finálne dokončenie</p>
+                        <a href="assets/pdf/ukazka-rozpoctu.pdf" target="_blank" class="case-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Ukážka rozpočtu a postupu prác
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <p style="text-align: center; color: #555; margin-top: 40px; font-size: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Ku každému objektu vám vieme ukázať nielen výsledok, ale aj to, ako vyzerá cenová ponuka, ktorú klient obdrží ešte pred začiatkom prác.
+            <p style="text-align: center; color: #555; margin-top: 40px; font-size: 16px; max-width: 860px; margin-left: auto; margin-right: auto;">
+                Ku každej realizácii vieme ukázať nielen výsledok, ale aj spôsob prípravy rozpočtu, rozsah prác a postup jednotlivých etáp.
             </p>
         </div>
     </section>
 
-    <section class="section bg-orange" style="text-align: center;">
-        <div class="container" style="max-width: 800px;">
-            <h2>Bezplatná obhliadka a cenová ponuka v Revite</h2>
-            <p style="font-size: 18px; margin-bottom: 30px; color: #fff5eb; line-height: 1.6;">
-                Prídeme na miesto, zameriame byt alebo dom a pripravíme prehľadnú cenovú ponuku v softvéri Revit s presným rozpisom prác a potrebných materiálov.
+    <section class="bg-orange">
+        <div class="container" style="max-width: 850px;">
+            <h2>Postaráme sa o dokumenty, materiál aj koordináciu prác</h2>
+            <p>
+                Rekonštrukciu riešime systematicky – od prvého kontaktu až po finálne odovzdanie.
+                Vy sa môžete sústrediť na výsledok, my zabezpečíme priebeh celej realizácie.
             </p>
-            <a href="#contact" class="btn-white">Nezáväzná obhliadka zdarma</a>
+            <a href="#contact" class="btn-white">Objednať bezplatnú obhliadku</a>
         </div>
     </section>
 
     <section id="process" class="section">
         <div class="container">
             <h2 class="section-title">Ako postupujeme</h2>
+
             <div class="grid-2">
                 <div class="process-column">
                     <div class="step-card">
                         <div class="step-number">1</div>
-                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Bezplatná obhliadka</h3>
-                        <p>Prídeme na miesto, priestor presne zameriame a prekonzultujeme s vami možnosti.</p>
+                        <h3>Bezplatná obhliadka</h3>
+                        <p>Prídeme na miesto, zameriame priestor a prekonzultujeme s vami rozsah prác, očakávania aj technické možnosti.</p>
                     </div>
+
                     <div class="step-card">
                         <div class="step-number">2</div>
-                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Cenová ponuka v Revite</h3>
-                        <p>Pripravíme detailný rozpočet prác a materiálov. Ak vám podmienky vyhovujú, dohodneme termín.</p>
+                        <h3>Cenová ponuka do 3 pracovných dní</h3>
+                        <p>Pripravíme prehľadný rozpočet a návrh ďalšieho postupu, aby ste vedeli, čo sa bude robiť a v akom rozsahu.</p>
                     </div>
                 </div>
+
                 <div class="process-column">
                     <div class="step-card">
                         <div class="step-number">3</div>
-                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Zmluva a realizácia</h3>
-                        <p>Podpíšeme zmluvu a pustíme sa do prác. Priebežne vás informujeme reportami z miesta stavby.</p>
+                        <h3>Zmluva a realizácia</h3>
+                        <p>Po odsúhlasení podmienok uzatvoríme zmluvu a pustíme sa do práce vrátane zabezpečenia materiálu a koordinácie priebehu rekonštrukcie.</p>
                     </div>
+
                     <div class="step-card">
                         <div class="step-number">4</div>
-                        <h3 style="margin-bottom: 10px; color: var(--dark-blue);">Odovzdanie na kľúč</h3>
-                        <p>Dokončené dielo upraceme a v dohodnutom termíne vám odovzdáme kľúče od hotového.</p>
+                        <h3>Odovzdanie hotového priestoru</h3>
+                        <p>Po dokončení vykonáme finálnu kontrolu a odovzdáme vám hotový priestor pripravený na ďalšie používanie.</p>
                     </div>
                 </div>
             </div>
@@ -347,22 +1240,22 @@
     </section>
 
     <section id="faq" class="section bg-light">
-        <div class="container" style="max-width: 800px;">
+        <div class="container" style="max-width: 850px;">
             <h2 class="section-title">Často kladené otázky</h2>
 
             <details class="faq-item">
-                <summary>Môžem si pozrieť ukážku vašej cenovej ponuky?</summary>
-                <p>Áno. Na webe ukazujeme nielen realizácie, ale aj formát výstupov. Naša cenová ponuka je pripravená v profesionálnom softvéri Revit, vďaka čomu presne vidíte, za čo platíte.</p>
-            </details>
-
-            <details class="faq-item">
-                <summary>Pracujete na základe zmluvy?</summary>
-                <p>Áno, všetky projekty realizujeme výhradne na základe riadnej zmluvy o dielo, ktorá chráni obe strany a definuje podmienky realizácie.</p>
+                <summary>Je obhliadka a cenová ponuka nezáväzná?</summary>
+                <p>Áno. Obhliadka je bezplatná a cenová ponuka je nezáväzná. Slúži na to, aby ste mali jasnú predstavu o rozsahu a ďalšom postupe.</p>
             </details>
 
             <details class="faq-item">
                 <summary>Zabezpečujete aj nákup materiálu?</summary>
-                <p>Stavebný a hrubý materiál (omietky, káble, potrubia) preberáme na seba my. Povrchové a pohľadové materiály si po dohode vyberáte vy.</p>
+                <p>Áno. Na základe dohodnutého rozsahu prác vieme zabezpečiť aj nákup a dovoz potrebného materiálu, aby ste nemuseli riešiť logistiku osobne.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Pracujete na základe zmluvy a dávate záruku?</summary>
+                <p>Áno. Práce realizujeme na základe zmluvy o dielo a na odovzdané práce poskytujeme záruku podľa dohodnutých podmienok.</p>
             </details>
         </div>
     </section>
@@ -371,14 +1264,18 @@
         <div class="container contact-container">
             <div class="contact-text">
                 <h2>Spojte sa s nami</h2>
-                <p>Pôsobíme v Bratislave a blízkom okolí. Zanechajte nám kontakt a ozveme sa vám pre dohodnutie bezplatnej obhliadky.</p>
+                <p>
+                    Pôsobíme v Bratislave a blízkom okolí. Napíšte nám stručne, čo potrebujete zrekonštruovať,
+                    a ozveme sa vám späť s ďalším postupom.
+                </p>
 
                 <p style="margin-top: 25px; font-size: 18px; color: #b0c4de;">
                     Telefón: <br>
                     <a href="tel:+421900000000" style="color: white; text-decoration: none; font-weight: bold; font-size: 24px;">+421 900 000 000</a>
                 </p>
+
                 <p style="margin-top: 15px; font-size: 18px; color: #b0c4de;">
-                    Email: <br>
+                    E-mail: <br>
                     <a href="mailto:info@nicestav.sk" style="color: white; text-decoration: none;">info@nicestav.sk</a>
                 </p>
 
@@ -388,21 +1285,23 @@
             </div>
 
             <div class="contact-form-wrapper">
+                <div class="form-intro">
+                    <strong>Napíšte nám a ozveme sa vám späť.</strong>
+                    <p>Po odoslaní formulára sa vám ozveme a dohodneme ďalší postup.</p>
+                    <p>Dopyt je nezáväzný.</p>
+                </div>
+
                 <form id="contact-form" class="form">
-                    <p style="margin-bottom: 20px; font-weight: 600; color: var(--dark-blue);">Vyplňte krátky formulár, ozveme sa vám v čo najkratšom čase.</p>
-
                     <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-
-                    <input type="text" name="Meno" placeholder="Vaše meno" required>
-                    <input type="tel" name="Telefon" placeholder="Telefón (+421...)" required pattern="[\+]\d{10,14}|\d{10,14}">
-                    <input type="text" name="Lokalita" placeholder="Lokalita (napr. Ružinov, Petržalka)" required>
-                    <textarea name="Popis" rows="3" placeholder="Stručný popis (čo potrebujete urobiť?)" required></textarea>
-
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                     <input type="hidden" name="subject" value="Nový dopyt z webu NiceStav (SK)">
                     <input type="hidden" name="from_name" value="NiceStav.sk">
+                    <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 18px;">Odoslať dopyt</button>
+                    <input type="text" name="Meno" placeholder="Vaše meno" required>
+                    <input type="email" name="Email" placeholder="Váš e-mail" required>
+                    <textarea name="Popis" rows="5" placeholder="Stručne opíšte, čo potrebujete zrekonštruovať" required></textarea>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 18px;">Odoslať nezáväzný dopyt</button>
                 </form>
 
                 <div id="form-result" class="form-message"></div>
@@ -418,17 +1317,16 @@
 </footer>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        // 1. Мобильное меню
+    document.addEventListener('DOMContentLoaded', function () {
         const burgerBtn = document.getElementById('burger-btn');
         const navMenu = document.getElementById('nav-menu');
         const navLinks = document.querySelectorAll('.nav-link');
 
-        if(burgerBtn && navMenu) {
+        if (burgerBtn && navMenu) {
             burgerBtn.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
             });
+
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     navMenu.classList.remove('active');
@@ -436,36 +1334,35 @@
             });
         }
 
-        // 2. Ползунок До/После
         const slider = document.getElementById('slider');
         const foregroundImg = document.querySelector('.img-foreground');
         const sliderButton = document.querySelector('.slider-button');
 
         if (slider && foregroundImg && sliderButton) {
-            slider.addEventListener('input', function(e) {
+            slider.addEventListener('input', function (e) {
                 const sliderPos = e.target.value;
                 foregroundImg.style.width = `${sliderPos}%`;
                 sliderButton.style.left = `${sliderPos}%`;
             });
         }
 
-        // 3. Отправка формы (AJAX)
         const form = document.getElementById('contact-form');
         const result = document.getElementById('form-result');
 
-        if(form) {
-            form.addEventListener('submit', function(e) {
+        if (form) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
                 const formData = new FormData(form);
                 const object = Object.fromEntries(formData);
                 const json = JSON.stringify(object);
 
+                result.style.display = 'block';
                 result.classList.remove('success', 'error');
                 result.classList.add('success');
                 result.style.backgroundColor = '#e0f2fe';
                 result.style.color = '#075985';
-                result.innerHTML = "Odosielam dopyt...";
+                result.innerHTML = 'Odosielam dopyt...';
 
                 fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
@@ -477,28 +1374,32 @@
                 })
                     .then(async (response) => {
                         let json = await response.json();
-                        if (response.status == 200) {
+
+                        if (response.status === 200) {
                             result.style.backgroundColor = '#d1fae5';
                             result.style.color = '#065f46';
-                            result.innerHTML = "Ďakujeme, dopyt bol úspešne odoslaný. Ozveme sa vám v krátkom čase.";
+                            result.innerHTML = 'Ďakujeme. Váš dopyt bol úspešne odoslaný.';
                             form.reset();
+
                             setTimeout(() => {
                                 result.classList.remove('success');
+                                result.style.display = 'none';
                             }, 5000);
                         } else {
                             result.classList.remove('success');
                             result.classList.add('error');
-                            result.innerHTML = "Chyba: " + json.message;
+                            result.innerHTML = 'Chyba: ' + json.message;
                         }
                     })
-                    .catch(error => {
+                    .catch(() => {
                         result.classList.remove('success');
                         result.classList.add('error');
-                        result.innerHTML = "Nastala chyba pripojenia. Prosím, kontaktujte nás telefonicky.";
+                        result.innerHTML = 'Nastala chyba pripojenia. Prosím, kontaktujte nás telefonicky alebo e-mailom.';
                     });
             });
         }
     });
 </script>
+
 </body>
 </html>
